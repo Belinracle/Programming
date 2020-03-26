@@ -17,7 +17,7 @@ public class ServerConnect {
     public Socket connect(String host,Integer port) throws IOException {
         try {
             soc = new Socket(host,port);
-            ioclient.write("Соединение успешно установлено");
+            ioclient.writeln("Соединение успешно установлено");
             return soc;
         }catch (ConnectException e){
             ioclient.write("Не удается установить соединение с сервером, возможно, указаны неверные хост и порт");

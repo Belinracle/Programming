@@ -3,16 +3,17 @@ package Connection;
 import Collection.MpaaRating;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 
-public class Validator {
+public class Validator implements Serializable {
     private String validate;
     private boolean needMovie;
     private boolean needPerson;
     public Validator(String validate){
         this.validate=validate;
     }
-    boolean validate(List<String> string){
+    public boolean validate(List<String> string){
         if (validate.equals("Int")){try{ Integer.parseInt(string.get(1));return true;}catch (NumberFormatException|IndexOutOfBoundsException e){return false;}}
         if (validate.equals("Path")){try{ new FileReader(string.get(1)).close();return true;}catch (IndexOutOfBoundsException | IOException e){return false;}}
         if (validate.equals("Rating")){try{ MpaaRating.valueOf(string.get(1));return true;}catch (IndexOutOfBoundsException |IllegalArgumentException e){return false;}}
@@ -29,16 +30,16 @@ public class Validator {
         }
         return true;
     }
-    void movie(){
+    public void movie(){
         needMovie=true;
     };
-    boolean needMovie(){
+    public boolean needMovie(){
         return needMovie;
     }
-    void person(){
+    public void person(){
         needPerson=true;
     }
-    boolean needPerson(){
+    public boolean needPerson(){
         return needPerson;
     }
 }

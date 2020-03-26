@@ -49,13 +49,12 @@ public class  CommandFetch {
                     }
                 }
                 ioServer.writeObj(trans);
-                while (!ioServer.hasNextLine()) {
+                while (!ioServer.ready()) {
                 }
-                StringBuilder sb = new StringBuilder();
-                while (ioServer.hasNextLine()) {
-                    sb.append(ioServer.readLine()).append("\n");
+                while (ioServer.ready()) {
+                    io.writeln(ioServer.readLine());
                 }
-                io.writeln(sb.toString());
+                System.out.println("end");
             } else io.write("Неверные аргументы команды");
         } catch (NoSuchElementException | IndexOutOfBoundsException | NullPointerException e) {
             System.out.println("Неизвестная команда");

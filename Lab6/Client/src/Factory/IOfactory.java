@@ -14,7 +14,7 @@ public class IOfactory implements Factory {
     @Override
     public Movie createMovie(IOinterface io, List<String> args) throws IOException {
         List<String> mov = new ArrayList<>();
-//        mov.add(String.valueOf(IDFactory.createID()));
+        mov.add("0");
         if(args.size()>1){mov.add(args.get(1));}
         else mov.add(readString(io,"Введите название фильма",false));
         if(args.size()>2){

@@ -7,15 +7,17 @@ public class IOconsole implements  IOinterface {
     private Writer output;
     private Reader input;
     private Scanner scan;
-    private ObjectInputStream oin;
-    private ObjectOutputStream oout;
+    private InputStream in;
+    private OutputStream out;
     private boolean interactive;
+    private BufferedReader bin;
     public IOconsole(InputStream in, OutputStream out,boolean interactive) throws IOException {
         this.interactive = interactive;
-        oout = new ObjectOutputStream(out);
-        oin = new ObjectInputStream(in);
+        this.in=in;
+        this.out = out;
         output= new OutputStreamWriter(out);
         scan = new Scanner(in);
+        bin = new BufferedReader(new InputStreamReader(in));
     }
     @Override
     public void write(String str){
@@ -39,12 +41,17 @@ public class IOconsole implements  IOinterface {
 
     @Override
     public boolean hasNextLine(){
-        return scan.hasNextLine();
+        return scan.hasNext();
     }
 
     @Override
-    public boolean ready() {
+    public boolean hasNext() {
         return scan.hasNext();
+    }
+
+    @Override
+    public boolean ready() throws IOException {
+        return bin.ready();
     }
 
     @Override
@@ -54,12 +61,14 @@ public class IOconsole implements  IOinterface {
 
     @Override
     public void writeObj(Object obj) throws IOException {
-        oout.writeObject(obj);
+        new ObjectOutputStream(out).writeObject(obj);
     }
 
     @Override
     public Object readObj() throws IOException, ClassNotFoundException {
-        return oin.readObject();
+        ObjectInputStream ois = new ObjectInputStream(in);
+        Object obj =ois.readObject();
+        return  obj;
     }
 
     @Override

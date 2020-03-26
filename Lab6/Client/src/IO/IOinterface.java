@@ -7,7 +7,8 @@ public interface IOinterface {
     void writeln(String str) throws IOException;
     String readLine() throws IOException;
     boolean hasNextLine() throws IOException;
-    boolean ready();
+    boolean hasNext();
+    boolean ready() throws IOException;
     boolean isInteractive();
     void writeObj(Object obj) throws IOException;
     Object readObj() throws IOException, ClassNotFoundException;

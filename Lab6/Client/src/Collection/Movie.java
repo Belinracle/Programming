@@ -1,10 +1,11 @@
 package Collection;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Movie {
+public class Movie implements Serializable {
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
@@ -18,14 +19,26 @@ public class Movie {
         this.args=args;
         id = Integer.parseInt(args.get(0));
         name = args.get(1);
-        coordinates = new Coordinates(args.subList(3,5));
+        List<String> coorList = new ArrayList<>();
+        coorList.add(args.get(3));
+        coorList.add(args.get(4));
+        coordinates = new Coordinates(coorList);
         creationDate = LocalDate.now();
         oscarsCount = Integer.parseInt(args.get(2));
         if (args.get(5).equals("null")){
             genre = null;}
         else {genre = MovieGenre.valueOf(args.get(5));}
         mpaaRating = MpaaRating.valueOf(args.get(6));
-        screenwriter = new Person(args.subList(7,14));
+        List<String> PersList = new ArrayList<>();
+        PersList.add(args.get(7));
+        PersList.add(args.get(8));
+        PersList.add(args.get(9));
+        PersList.add(args.get(10));
+        PersList.add(args.get(11));
+        PersList.add(args.get(12));
+        PersList.add(args.get(13));
+        PersList.add(args.get(14));
+        screenwriter = new Person(PersList);
     }
     public List<String> getArgs(){
         return args;
@@ -45,7 +58,8 @@ public class Movie {
     Person getSc(){
         return screenwriter;
     }
-    Integer getId(){
-        return id;
+    Integer getId(){return id;}
+    public void setID(Integer id){
+        this.id=id;
     }
 }
