@@ -16,9 +16,11 @@ import Connection.*;
 public class ControlUnit {
     private CommandFetch cf;
     private IOinterface iOinterface;
-    public ControlUnit(CommandFetch cf) throws IOException {
+    public ControlUnit(CommandFetch cf,IOinterface iOinterface) throws IOException {
         this.cf = cf;
+        this.iOinterface = iOinterface;
         CollectionInterface dmc = new DeQueCollection();
+        IDFactory id = new IDFactory("idContainer.txt");
         Factory iomov = new TransferObjectFactory();
         Command add = new AddCommand(dmc,iomov, cf);
         Command show = new ShowCommand(dmc, cf);
@@ -26,7 +28,7 @@ public class ControlUnit {
         Command help = new HelpCommand(cf, "SomeFile.txt");
         Command update = new UpdateCommand(dmc,iomov,cf);
         Parser csvPars = new CSVParser();
-        Command save = new SaveCommand( dmc,"Save.txt",cf,csvPars);
+        Command save = new SaveCommand( dmc,"Save.txt",cf,csvPars,id);
         Command load = new LoadCommand(dmc,csvPars,cf);
         Command remFirst = new RemoveFirstCommand(dmc, cf);
         Command removeID = new RemoveCommand(dmc,cf);

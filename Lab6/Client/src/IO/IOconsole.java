@@ -35,13 +35,13 @@ public class IOconsole implements  IOinterface {
     }
 
     @Override
-    public String readLine() {
-        return scan.nextLine();
+    public String readLine() throws IOException {
+        return bin.readLine();
     }
 
     @Override
-    public boolean hasNextLine(){
-        return scan.hasNext();
+    public boolean hasNextLine() throws IOException {
+        return bin.ready();
     }
 
     @Override

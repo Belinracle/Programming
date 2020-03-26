@@ -22,7 +22,7 @@ public class  CommandFetch {
                 Runtime.getRuntime().removeShutdownHook(hook);
             }
             commandMap.get(words.get(0).toLowerCase()).execute(io,words);
-        } catch (NoSuchElementException | IndexOutOfBoundsException | NullPointerException | ClassNotFoundException e) {
+        } catch (NoSuchElementException | IndexOutOfBoundsException | ClassNotFoundException e) {
             System.out.println("Неизвестная команда");
         }
     }

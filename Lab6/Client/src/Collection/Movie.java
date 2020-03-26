@@ -37,7 +37,6 @@ public class Movie implements Serializable {
         PersList.add(args.get(11));
         PersList.add(args.get(12));
         PersList.add(args.get(13));
-        PersList.add(args.get(14));
         screenwriter = new Person(PersList);
     }
     public List<String> getArgs(){
@@ -61,5 +60,7 @@ public class Movie implements Serializable {
     Integer getId(){return id;}
     public void setID(Integer id){
         this.id=id;
+        args.remove(0);
+        args.add(0,String.valueOf(id));
     }
 }

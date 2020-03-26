@@ -1,6 +1,7 @@
 package Commands;
 
 import Collection.CollectionInterface;
+import Factory.IDFactory;
 import IO.IOconsole;
 import IO.IOinterface;
 import Parsers.Parser;
@@ -13,7 +14,7 @@ public class LoadCommand implements Command {
     private CollectionInterface ci;
     private Parser pars;
     private String name;
-    LoadCommand(CollectionInterface ci, Parser pars, CommandFetch cf){
+    LoadCommand(CollectionInterface ci, Parser pars, CommandFetch cf) throws IOException {
         cf.addCommand("load",this);
         this.ci = ci;
         this.pars=pars;
@@ -25,7 +26,6 @@ public class LoadCommand implements Command {
             if (val.validate(args)) {
                 IOinterface ioFile = new IOconsole(new FileInputStream(new File(args.get(1))), System.out, true);
                 ci.load(pars,ioFile);
-                io.writeln("Коллекция загружена");
             } else io.writeln("Неверные аргументы команды(Указан неверный файл)");
         }catch (NumberFormatException e){
             io.writeln("В файле нет объектов, загружена пустая коллекция");

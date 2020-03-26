@@ -20,6 +20,7 @@ public class IOClient implements IOinterface {
     @Override
     public void write(String str) throws IOException {
         output.write(str);
+        System.out.println(str);
         output.flush();
     }
 

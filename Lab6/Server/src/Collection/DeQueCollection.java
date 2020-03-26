@@ -47,6 +47,7 @@ public class DeQueCollection implements CollectionInterface {
             }
             coll.removeLast();
             coll.addLast(mov);
+            io.writeln("Элемент обновлен");
         }catch(NoSuchElementException e){
             io.writeln("В коллекции нет Фильма с таким ID");
             coll.addAll(buf);
@@ -143,7 +144,6 @@ public class DeQueCollection implements CollectionInterface {
         coll.forEach(x-> {
             try {
                 iOinterface.write(pars.ser(x));
-
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -26,7 +26,6 @@ public class HelpCommand implements Command {
 
     @Override
     public void execute(IOinterface io, List<String> args) throws IOException {
-        System.out.println(help);
         io.write(help);
     }
 

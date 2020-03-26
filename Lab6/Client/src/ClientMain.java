@@ -2,6 +2,7 @@ import Connection.*;
 import IO.*;
 import Factory.*;
 import java.io.*;
+import java.nio.file.NoSuchFileException;
 import java.util.Map;
 
 public class ClientMain {
@@ -17,16 +18,14 @@ public class ClientMain {
             Map<String, Connection.Validator> commandMap = (java.util.HashMap<String, Connection.Validator>) fromServer.getObject();
             Factory fac = new IOfactory();
             CommandFetch cf = new CommandFetch(commandMap, ioServer, fac);
-            System.out.println("as");
             while (true) {
                 try {
-                    System.out.println("da");
                     cf.run(iOclient.readLine(), iOclient);
                 } catch (StackOverflowError e) {
                     System.out.println("Сломал компудахтер своей рекурсией, ты доволеннн????");
                 }
             }
-        } catch (NullPointerException e){
+        } catch (NoSuchFileException e){
             iOclient.writeln("Сервер принял ислам, соединения больше не будет");
         }
     }

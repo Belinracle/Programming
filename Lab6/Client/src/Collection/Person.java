@@ -15,7 +15,12 @@ public class Person implements Serializable {
         name = args.get(0);
         weight = Long.parseLong(args.get(1));
         passportID = args.get(2);
-        location = new Location(args.subList(3,7));
+        List<String> locList = new ArrayList<>();
+        locList.add(args.get(3));
+        locList.add(args.get(4));
+        locList.add(args.get(5));
+        locList.add(args.get(6));
+        location = new Location(locList);
     }
     public List<String> getArgs(){
         return args;

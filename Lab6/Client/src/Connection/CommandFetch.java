@@ -28,35 +28,37 @@ public class  CommandFetch {
                 Runtime.getRuntime().removeShutdownHook(hook);
             }
             if (commandMap.get(words.get(0).toLowerCase()).validate(words)) {
-                TransferObject trans = new TransferObject(str);
                 if (words.get(0).toLowerCase().equals("execute")) {
                     IOinterface nio = new IOconsole(new FileInputStream(new File(words.get(1))), System.out, false);
                     while (nio.hasNextLine()) {
                         String request = nio.readLine();
-                        if (!str.isEmpty()) {
-                            run(request, nio);
+                        run(request, nio);
+                    }
+                }
+                else {
+                    TransferObject trans = new TransferObject(str);
+                    if (words.get(0).toLowerCase().equals("update")) {
+                        trans.putObject(fac.updateMovie(words.get(1), io));
+                    } else {
+                        if (words.get(0).toLowerCase().equals("exit")) {
+                            System.exit(0);
+                        }
+                        if (commandMap.get(words.get(0)).needMovie()) {
+                            trans.putObject(fac.createMovie(io, words));
+                        }
+                        if (commandMap.get(words.get(0)).needPerson()) {
+                            trans.putObject(fac.createPerson(io));
                         }
                     }
-                }
-                if (words.get(0).toLowerCase().equals("update")) {
-                    trans.putObject(fac.updateMovie(words.get(1), io));
-                } else {
-                    if (commandMap.get(words.get(0)).needMovie()) {
-                        trans.putObject(fac.createMovie(io, words));
+                    ioServer.writeObj(trans);
+                    while (!ioServer.ready()) {
                     }
-                    if (commandMap.get(words.get(0)).needPerson()) {
-                        trans.putObject(fac.createPerson(io));
+                    while (ioServer.ready()) {
+                        io.writeln(ioServer.readLine());
                     }
                 }
-                ioServer.writeObj(trans);
-                while (!ioServer.ready()) {
-                }
-                while (ioServer.ready()) {
-                    io.writeln(ioServer.readLine());
-                }
-                System.out.println("end");
-            } else io.write("Неверные аргументы команды");
-        } catch (NoSuchElementException | IndexOutOfBoundsException | NullPointerException e) {
+            } else io.writeln("Неверные аргументы команды");
+        } catch (NullPointerException e) {
             System.out.println("Неизвестная команда");
         }catch(IOException|IllegalArgumentException e){
             io.writeln("Скрипт составлен неверно");

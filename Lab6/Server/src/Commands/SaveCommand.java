@@ -16,13 +16,13 @@ public class SaveCommand implements Command {
     private Parser parser;
     private IDFactory id;
     private String name;
-    SaveCommand(CollectionInterface ci, String path,CommandFetch cf, Parser parser) throws IOException {
+    SaveCommand(CollectionInterface ci, String path,CommandFetch cf, Parser parser,IDFactory id) throws IOException {
         this.ci=ci;
         this.path=path;
         this.parser=parser;
         name="save";
         cf.addCommand("save",this);
-        id= new IDFactory("IdContainer.txt");
+        this.id = id;
     }
     @Override
     public void execute(IOinterface io, List<String> args) throws IOException {
