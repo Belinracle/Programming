@@ -19,7 +19,13 @@ public class ServerMain {
     public static boolean sent;
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         CommandFetch cf = new CommandFetch();
-        ClientHandler clientHandler = new ClientHandler(2229);
+        ClientHandler clientHandler=null;
+        try {
+            clientHandler = new ClientHandler(Integer.parseInt(args[0]));
+        }catch(IndexOutOfBoundsException e){
+            System.out.println("Нужно указать порт");
+            System.exit(0);
+        }
         ControlUnit cu = new ControlUnit(cf);
         TransferObject mapTOClient = new TransferObject("map");
         mapTOClient.putObject(cu.getValMap());

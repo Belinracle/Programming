@@ -17,7 +17,7 @@ public class PrintAscendingCommand implements Command {
     }
     @Override
     public void execute(IOinterface io, List<String> args) throws IOException {
-        io.writeln(ci.print_ascending());
+        io.writeln("Элементы коллекции в порядке убывания имени \n" +ci.print_ascending());
     }
 
     @Override
