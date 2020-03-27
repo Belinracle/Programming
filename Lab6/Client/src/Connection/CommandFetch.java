@@ -60,7 +60,7 @@ public class  CommandFetch {
             } else io.writeln("Неверные аргументы команды");
         } catch (NullPointerException e) {
             System.out.println("Неизвестная команда");
-        }catch(IOException|IllegalArgumentException e){
+        }catch(IllegalArgumentException e){
             io.writeln("Скрипт составлен неверно");
         }
     }

@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.List;
 import Connection.*;
 public class HelpCommand implements Command {
@@ -14,8 +15,7 @@ public class HelpCommand implements Command {
     private Validator val = new Validator("Any");
     private String name;
     HelpCommand(CommandFetch cf, String path) throws IOException {
-        File myFile = new File(path);
-        reader = new BufferedReader(new FileReader(path));
+        reader = new BufferedReader(new FileReader(Paths.get(path).toFile()));
         name="help";
         help="";
         while(reader.ready()) {

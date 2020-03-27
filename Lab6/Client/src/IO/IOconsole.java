@@ -61,7 +61,11 @@ public class IOconsole implements  IOinterface {
 
     @Override
     public void writeObj(Object obj) throws IOException {
-        new ObjectOutputStream(out).writeObject(obj);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream (baos);
+            oos.writeObject(obj);
+            oos.flush();
+            out.write(baos.toByteArray());
     }
 
     @Override

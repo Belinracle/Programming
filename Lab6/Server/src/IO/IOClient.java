@@ -1,27 +1,26 @@
 package IO;
 
+import com.sun.xml.internal.ws.util.ByteArrayBuffer;
+
 import java.io.*;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.nio.channels.SocketChannel;
 import java.util.Scanner;
 
 public class IOClient implements IOinterface {
-    private Writer output;
-    private Reader input;
-    private Scanner scan;
-    private InputStream in;
-    private OutputStream out;
     private boolean interactive;
-    public IOClient(InputStream in, OutputStream out,boolean interactive) throws IOException {
+    SocketChannel socCh;
+    public IOClient(SocketChannel socCh, boolean interactive) throws IOException {
         this.interactive = interactive;
-        this.in=in;
-        this.out = out;
-        output= new OutputStreamWriter(out);
-        scan = new Scanner(in);
+        this.socCh=socCh;
     }
     @Override
     public void write(String str) throws IOException {
-        output.write(str);
+        ByteBuffer bb = ByteBuffer.wrap(str.getBytes());
+        socCh.write(bb);
         System.out.println(str);
-        output.flush();
     }
 
     @Override
@@ -51,14 +50,23 @@ public class IOClient implements IOinterface {
 
     @Override
     public void writeObj(Object obj) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(out);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(obj);
         oos.flush();
+        socCh.write(ByteBuffer.wrap(baos.toByteArray()));
     }
 
     @Override
     public Object readObj() throws IOException, ClassNotFoundException {
-        return new ObjectInputStream(in).readObject();
+        ByteBuffer bb = ByteBuffer.allocate(5 * 1024);
+        try{
+        socCh.read(bb);
+        return new ObjectInputStream(new ByteArrayInputStream(bb.array())).readObject();
+        }catch(IOException e){
+            socCh.close();
+            throw new ConnectException("Соединение с клиентом разорвано");
+        }
     }
 
     @Override
@@ -68,6 +76,5 @@ public class IOClient implements IOinterface {
 
     @Override
     public void close() throws IOException {
-
     }
 }

@@ -1,6 +1,8 @@
 package Factory;
 
 import java.io.*;
+import java.nio.file.Paths;
+import java.util.regex.Pattern;
 
 public class IDFactory {
     private static Integer counter;
@@ -8,7 +10,7 @@ public class IDFactory {
     private String path;
     public IDFactory(String path) throws IOException {
         this.path=path;
-        reader = new BufferedReader(new FileReader(path));
+        reader = new BufferedReader(new FileReader(Paths.get(path).toFile()));
         counter= Integer.parseInt(reader.readLine());
     }
 
@@ -34,7 +36,7 @@ public class IDFactory {
      * @throws FileNotFoundException
      */
     public void write(String id) throws FileNotFoundException {
-        PrintWriter writerID = new PrintWriter(path);
+        PrintWriter writerID = new PrintWriter(Paths.get(path).toFile());
         writerID.write(id);
         writerID.close();
     }

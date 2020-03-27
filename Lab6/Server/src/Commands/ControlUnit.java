@@ -4,6 +4,7 @@ import Collection.CollectionInterface;
 import Collection.DeQueCollection;
 import Connection.TransferObject;
 import Factory.*;
+import IO.IOconsole;
 import IO.IOinterface;
 import IO.IOtrans;
 import Parsers.CSVParser;
@@ -16,7 +17,7 @@ import Connection.*;
 public class ControlUnit {
     private CommandFetch cf;
     private IOinterface iOinterface;
-    public ControlUnit(CommandFetch cf,IOinterface iOinterface) throws IOException {
+    public ControlUnit(CommandFetch cf) throws IOException {
         this.cf = cf;
         this.iOinterface = iOinterface;
         CollectionInterface dmc = new DeQueCollection();
@@ -28,8 +29,7 @@ public class ControlUnit {
         Command help = new HelpCommand(cf, "SomeFile.txt");
         Command update = new UpdateCommand(dmc,iomov,cf);
         Parser csvPars = new CSVParser();
-        Command save = new SaveCommand( dmc,"Save.txt",cf,csvPars,id);
-        Command load = new LoadCommand(dmc,csvPars,cf);
+        Command save = new SaveCommand( dmc, "Save.txt",cf,csvPars,id);
         Command remFirst = new RemoveFirstCommand(dmc, cf);
         Command removeID = new RemoveCommand(dmc,cf);
         Command clear = new ClearCommand(dmc, cf);
@@ -40,6 +40,8 @@ public class ControlUnit {
         Command coutByMpaaRating = new CountByMpaaCommand(dmc,cf);
         Command printAsc = new PrintAscendingCommand(dmc,cf);
         Command execute = new ExecuteCommand(cf);
+        IOinterface ioFile = new IOconsole(new FileInputStream(new File("Save.txt")), System.out, true);
+        dmc.load(csvPars,ioFile);
     }
     public void process(String str) throws IOException {
         cf.run(str,iOinterface);

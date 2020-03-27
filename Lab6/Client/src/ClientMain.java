@@ -2,6 +2,7 @@ import Connection.*;
 import IO.*;
 import Factory.*;
 import java.io.*;
+import java.net.SocketException;
 import java.nio.file.NoSuchFileException;
 import java.util.Map;
 
@@ -10,7 +11,7 @@ public class ClientMain {
             IOinterface iOclient = new IOconsole(System.in, System.out, true);
         try {
             ServerConnect scon = new ServerConnect(iOclient);
-            scon.connect("localhost", 7890);
+            scon.connect("localhost", 2229);
             IOinterface ioServer = new IOconsole(scon.getInputStream(), scon.getOutputStream(), true);
             while (!ioServer.ready()) {
             }
@@ -25,7 +26,7 @@ public class ClientMain {
                     System.out.println("Сломал компудахтер своей рекурсией, ты доволеннн????");
                 }
             }
-        } catch (NoSuchFileException e){
+        } catch (NullPointerException| SocketException e){
             iOclient.writeln("Сервер принял ислам, соединения больше не будет");
         }
     }
