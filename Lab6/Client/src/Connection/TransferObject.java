@@ -2,6 +2,9 @@ package Connection;
 
 import java.io.Serializable;
 
+/**
+ * ОбЪект для общения с Сервером(ТЗ)
+ */
 public class TransferObject implements Serializable {
     Object obj;
     String request;

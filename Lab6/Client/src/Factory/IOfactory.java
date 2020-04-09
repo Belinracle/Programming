@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * реализация интерфейса заточенная на создание объекта из консоли
+ */
 public class IOfactory implements Factory {
     @Override
     public Movie createMovie(IOinterface io, List<String> args) throws IOException {

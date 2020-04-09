@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * реализация Парсера на CSV формат
+ */
 public class CSVParser implements Parser {
 
     @Override

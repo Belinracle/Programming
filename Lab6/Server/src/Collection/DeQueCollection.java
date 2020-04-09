@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+/**
+ * реализацмя интерфейса дляработы с ArrayDeque
+ */
 public class DeQueCollection implements CollectionInterface {
     private ArrayDeque<Movie> coll;
     private ArrayDeque<Movie> buf;

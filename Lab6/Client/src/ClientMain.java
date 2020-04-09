@@ -5,6 +5,9 @@ import Factory.*;
 import java.io.*;
 import java.util.Map;
 
+/**
+ * главный класс клиента
+ */
 public class ClientMain {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
             IOinterface iOclient = new IOconsole(System.in, System.out, true);

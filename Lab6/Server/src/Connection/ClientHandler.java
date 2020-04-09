@@ -2,13 +2,14 @@ package Connection;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
+/**
+ * Класс для обработки новых соединений клиентов
+ */
 public class ClientHandler {
     ServerSocketChannel ssch;
     Selector selector;

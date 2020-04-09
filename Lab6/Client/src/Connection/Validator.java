@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * Класс для валидации команд
+ */
 public class Validator implements Serializable {
     private String validate;
     private boolean needMovie;

@@ -6,7 +6,9 @@ import IO.IOinterface;
 
 import java.io.*;
 import java.util.*;
-
+/**
+ * Класс для  обработки команды
+ */
 public class  CommandFetch {
     private Map<String, Validator> commandMap;
     private Thread hook;
@@ -19,6 +21,12 @@ public class  CommandFetch {
         this.ioServer = ioServer;
     }
 
+    /**
+     * Метод для заупска выполнения команды
+     * @param str строка введенная пользрователем
+     * @param io Интерфейс для чтения/записи
+     * @throws IOException
+     */
     public void run(String str, IOinterface io) throws IOException {
         try {
             List<String> words = Arrays.asList(str.split(" +"));

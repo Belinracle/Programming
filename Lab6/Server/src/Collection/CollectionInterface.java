@@ -4,6 +4,10 @@ import IO.IOinterface;
 import Parsers.Parser;
 
 import java.io.IOException;
+
+/**
+ * Интерфейс для работы с разными коллекциями
+ */
 public interface CollectionInterface {
     String info();
     String show();

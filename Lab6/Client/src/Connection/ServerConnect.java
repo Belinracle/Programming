@@ -9,6 +9,9 @@ import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Класс для подключения к серверу
+ */
 public class ServerConnect {
     Socket soc;
     IOinterface ioclient;

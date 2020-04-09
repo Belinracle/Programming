@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Фабрика нужных объектов настроенная на извлечение готовых объектов из IO
+ */
 public class TransferObjectFactory implements Factory {
     @Override
     public Movie createMovie(IOinterface io, List<String> args) throws IOException, ClassNotFoundException {
