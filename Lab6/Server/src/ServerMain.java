@@ -4,16 +4,14 @@ import Connection.ClientHandler;
 import Connection.TransferObject;
 import IO.IOClient;
 import IO.IOinterface;
+import com.sun.corba.se.spi.orbutil.threadpool.NoSuchThreadPoolException;
 
 import java.io.*;
 import java.net.ConnectException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-import java.util.Scanner;
+
 
 public class ServerMain {
     public static boolean sent;
@@ -24,6 +22,10 @@ public class ServerMain {
             clientHandler = new ClientHandler(Integer.parseInt(args[0]));
         }catch(IndexOutOfBoundsException e){
             System.out.println("Нужно указать порт");
+            System.exit(0);
+        }
+        catch(NumberFormatException e){
+            System.out.println("Порт не того формата, должен быть числовой");
             System.exit(0);
         }
         ControlUnit cu = new ControlUnit(cf);
@@ -41,7 +43,6 @@ public class ServerMain {
                 try {
                     if (!selKey.isValid())
                     {
-                        System.out.println("dada");
                         continue;
                     }
                     if (selKey.isAcceptable()) {

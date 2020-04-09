@@ -19,7 +19,7 @@ public class DeQueCollection implements CollectionInterface {
     }
     @Override
     public String info() {
-        return "Тип коллекции "+coll.getClass()+ "Количество элементов "+coll.size();
+        return "Тип коллекции "+coll.getClass()+ " Количество элементов "+coll.size();
     }
 
     @Override

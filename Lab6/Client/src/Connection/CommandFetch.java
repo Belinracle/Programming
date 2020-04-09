@@ -17,15 +17,13 @@ public class  CommandFetch {
         this.commandMap = commandMap;
         this.fac = fac;
         this.ioServer = ioServer;
-        hook = new Thread(() -> System.out.println("Работа программы прервана. Изменения не сохранены"));
-        Runtime.getRuntime().addShutdownHook(hook);
     }
 
     public void run(String str, IOinterface io) throws IOException {
         try {
             List<String> words = Arrays.asList(str.split(" +"));
             if (words.get(0).equals("exit")) {
-                Runtime.getRuntime().removeShutdownHook(hook);
+                System.exit(0);
             }
             if (commandMap.get(words.get(0).toLowerCase()).validate(words)) {
                 if (words.get(0).toLowerCase().equals("execute")) {
@@ -51,10 +49,15 @@ public class  CommandFetch {
                         }
                     }
                     ioServer.writeObj(trans);
+                    long start = System.currentTimeMillis();
                     while (!ioServer.ready()) {
+                        long finish = System.currentTimeMillis();
+                        if(finish-start>1000){
+                            throw new IOException();
+                        }
                     }
                     while (ioServer.ready()) {
-                        io.writeln(ioServer.readLine());
+                            io.writeln(ioServer.readLine());
                     }
                 }
             } else io.writeln("Неверные аргументы команды");

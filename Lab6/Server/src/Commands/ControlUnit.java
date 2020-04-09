@@ -21,7 +21,7 @@ public class ControlUnit {
         this.cf = cf;
         this.iOinterface = iOinterface;
         CollectionInterface dmc = new DeQueCollection();
-        IDFactory id = new IDFactory("idContainer.txt");
+        IDFactory id = new IDFactory("IdContainer.txt");
         Factory iomov = new TransferObjectFactory();
         Command add = new AddCommand(dmc,iomov, cf);
         Command show = new ShowCommand(dmc, cf);

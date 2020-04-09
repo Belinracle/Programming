@@ -6,6 +6,7 @@ import Connection.TransferObject;
 import IO.IOinterface;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TransferObjectFactory implements Factory {
@@ -14,6 +15,7 @@ public class TransferObjectFactory implements Factory {
         TransferObject trans = (TransferObject) io.readObj();
         Movie mov =(Movie)trans.getObject();
         mov.setID(IDFactory.createID());
+        mov.setCreatDate(LocalDate.now());
         return mov;
     }
 

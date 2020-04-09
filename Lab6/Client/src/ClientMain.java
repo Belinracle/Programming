@@ -1,11 +1,8 @@
 import Connection.*;
 import IO.*;
 import Factory.*;
-import com.sun.xml.internal.ws.api.pipe.SyncStartForAsyncFeature;
 
 import java.io.*;
-import java.net.SocketException;
-import java.nio.file.NoSuchFileException;
 import java.util.Map;
 
 public class ClientMain {
@@ -34,12 +31,12 @@ public class ClientMain {
             CommandFetch cf = new CommandFetch(commandMap, ioServer, fac);
             while (true) {
                 try {
-                    cf.run(iOclient.readLine(), iOclient);
+                    cf.run(iOclient.readLine().trim(), iOclient);
                 } catch (StackOverflowError e) {
                     System.out.println("Сломал компудахтер своей рекурсией, ты доволеннн????");
                 }
             }
-        } catch (NullPointerException| SocketException e){
+        } catch (IOException|NullPointerException e){
             iOclient.writeln("Сервер принял ислам, соединения больше не будет");
         }
     }

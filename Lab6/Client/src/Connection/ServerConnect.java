@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class ServerConnect {
     Socket soc;
@@ -19,8 +20,9 @@ public class ServerConnect {
             soc = new Socket(host,port);
             ioclient.writeln("Соединение успешно установлено");
             return soc;
-        }catch (ConnectException e){
+        }catch (ConnectException| UnknownHostException e){
             ioclient.write("Не удается установить соединение с сервером, возможно, указаны неверные хост и порт");
+            System.exit(0);
             return null;
         }
     }

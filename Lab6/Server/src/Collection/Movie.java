@@ -15,6 +15,7 @@ public class Movie implements Serializable {
     private MpaaRating mpaaRating; //Поле не может быть null
     private Person screenwriter;
     private List<String> args;
+    private static final long serialVersionUID = 228;
     public Movie(List<String> args){
         this.args=args;
         id = Integer.parseInt(args.get(0));
@@ -52,5 +53,8 @@ public class Movie implements Serializable {
         this.id=id;
         args.remove(0);
         args.add(0,String.valueOf(id));
+    }
+    public void setCreatDate(LocalDate date){
+        creationDate=date;
     }
 }
